@@ -1,5 +1,8 @@
 import * as Mongodb from "mongodb";
 import { MongoClient, Db } from "mongodb";
+import config from '../config';
+
+const { mongoConfig } = config;
 
 const _defaultConfig: Object = {
   native_parser: false,
@@ -156,7 +159,7 @@ class Mongo {
   }
 }
 
-export function getMongo(options): Promise<Mongo> {
+export function getMongo(options = mongoConfig): Promise<Mongo> {
   return new Promise((resolve, reject) => {
     try {
       new Mongo(Object.assign(options, {
