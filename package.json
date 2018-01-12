@@ -21,6 +21,16 @@
   },
   "homepage": "https://github.com/MrTreasure/typescript-blank-project#readme",
   "devDependencies": {
+    "@types/koa": "^2.0.43",
+    "@types/koa-router": "^7.0.27",
     "typescript": "^2.6.2"
+  },
+  "dependencies": {
+    "fs-extra": "^5.0.0",
+    "koa": "^2.4.1",
+    "koa-body-parser": "^1.1.2",
+    "koa-router": "^7.3.0",
+    "mongodb": "^3.0.1",
+    "mongodb-core": "^3.0.1"
   }
 }
