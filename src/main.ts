@@ -10,12 +10,14 @@ import * as logger from 'koa-logger';
 
 const app: Koa = new Koa();
 
-app.use(logger());
-app.use(responseTime())
+if(process.env.NODE_ENV == 'development') {
+  app.use(logger());
+}
+app.use(responseTime());
 app.use(helmet());
 app.use(bodyParser());
 app.use(koaStatic(path.join(__dirname, 'public')));
-console.log(path.join(__dirname, 'public'));
+console.log(process.env.NODE_ENV);
 
 const server = app.listen(1002, () => {
   let addr = server.address();
