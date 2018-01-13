@@ -7,19 +7,21 @@ import * as helmet from 'koa-helmet';
 import * as koaStatic from 'koa-static';
 import * as logger from 'koa-logger';
 
+import config from './config';
+const { serverConfig } = config;
 
 const app: Koa = new Koa();
 
 if(process.env.NODE_ENV == 'development') {
   app.use(logger());
+  console.log(process.env.NODE_ENV);
 }
 app.use(responseTime());
 app.use(helmet());
 app.use(bodyParser());
 app.use(koaStatic(path.join(__dirname, 'public')));
-console.log(process.env.NODE_ENV);
 
-const server = app.listen(1002, () => {
+const server = app.listen(serverConfig.port, () => {
   let addr = server.address();
   console.log(`service running at ${addr.address}:${addr.port}`);
 })
