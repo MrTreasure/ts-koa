@@ -23,7 +23,7 @@ if(process.env.NODE_ENV == 'development') {
 app.use(responseTime());
 app.use(helmet());
 app.use(bodyParser());
-app.use(koaMongo())
+app.use(koaMongo);
 app.use(koaStatic(path.join(__dirname, 'public')));
 
 
