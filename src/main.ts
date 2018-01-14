@@ -7,10 +7,14 @@ import * as helmet from 'koa-helmet';
 import * as koaStatic from 'koa-static';
 import * as logger from 'koa-logger';
 
+
+import { koaMongo } from './middleware/koa-mongo';
+
 import config from './config';
+import router from './routes/resume';
 const { serverConfig } = config;
 
-const app: Koa = new Koa();
+const app = new Koa();
 
 if(process.env.NODE_ENV == 'development') {
   app.use(logger());
@@ -19,7 +23,11 @@ if(process.env.NODE_ENV == 'development') {
 app.use(responseTime());
 app.use(helmet());
 app.use(bodyParser());
+app.use(koaMongo())
 app.use(koaStatic(path.join(__dirname, 'public')));
+
+
+app.use(router.routes())
 
 const server = app.listen(serverConfig.port, () => {
   let addr = server.address();
