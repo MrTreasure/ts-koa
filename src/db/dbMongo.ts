@@ -7,9 +7,7 @@ const { mongoConfig } = config;
 const _defaultConfig: Object = {
   native_parser: false,
   poolSize: 10,
-  connectTimeoutMS: 1000,
-  replSet: {},
-  mongos: {}
+  connectTimeoutMS: 1000
 };
 
 /**

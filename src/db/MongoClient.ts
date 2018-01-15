@@ -1,11 +1,11 @@
-import { Collection, MongoClient as Mongo, Db, Cursor, MongoError } from 'mongodb';
+import { Collection, MongoClient as Mongo, Db, Cursor, MongoError, FindAndModifyWriteOpResultObject, UpdateWriteOpResult, DeleteWriteOpResultObject } from 'mongodb';
 import { ObjectID } from '../../node_modules/_@types_bson@1.0.6@@types/bson';
 /**
  * 
  * 
  * @class MongoClient
  */
-class MongoClient {
+export class MongoClient {
   clientPromise: Promise<Mongo>;
   dbName: string;
 
@@ -128,6 +128,98 @@ class MongoClient {
     const collection = await this.getCollenction(collectionName);
     options = Object.assign({}, options, { projection: fields });
     return await collection.findOne(query, options);
+  }
+
+  /**
+   * Find a document and delete it in one atomic operation, requires a write lock for the duration of the operation.
+   * @param {string} collectionName 
+   * @param {*} filter 
+   * @param {*} options 
+   */
+  async findOneAndDelete(collectionName:string, filter, options = {}): Promise<FindAndModifyWriteOpResultObject> {
+    const collection = await this.getCollenction(collectionName);
+    return await collection.findOneAndDelete(filter, options);
+  }
+
+  /**
+   * Find a document and replace it in one atomic operation, requires a write lock for the duration of the operation.
+   * @param {string} collectionName 
+   * @param {*} filter 
+   * @param {object} replacement 
+   * @param {object} options 
+   */
+  async findOneAndReplace(collectionName:string, filter, replacement, options = {}): Promise<FindAndModifyWriteOpResultObject> {
+    const collection = await this.getCollenction(collectionName);
+    return await collection.findOneAndReplace(filter, replacement, options);
+  }
+
+  /**
+   * Find a document and update it in one atomic operation, requires a write lock for the duration of the operation.
+   * @param {string} collectionName 
+   * @param {object} filter 
+   * @param {object} update 
+   * @param {object} options 
+   */
+  async findOneAndUpdate(collectionName: string, filter, update, options = {}): Promise<FindAndModifyWriteOpResultObject> {
+    const collection = await this.getCollenction(collectionName);
+    return await collection.findOneAndUpdate(filter, update, options);
+  }
+
+  /**
+   * Update multiple documents on MongoDB
+   * @param {string} collectionName 
+   * @param {object} filter 
+   * @param {object} update 
+   * @param {options} options 
+   */
+  async updateMany(collectionName: string, filter, update, options = {}): Promise<UpdateWriteOpResult> {
+    const collection = await this.getCollenction(collectionName);
+    return await collection.updateMany(filter, update, options)
+  }
+
+  /**
+   * Update a single document on MongoDB
+   * @param {string} collectionName 
+   * @param {object} filter 
+   * @param {object} update 
+   * @param {object} options 
+   */
+  async updateOne(collectionName: string, filter, update, options = {}): Promise<UpdateWriteOpResult> {
+    const collection = await this.getCollenction(collectionName);
+    return await collection.updateOne(filter, update, options);
+  }
+
+  /**
+   * Delete a document on MongoDB
+   * @param {string} collectionName 
+   * @param {object} filter 
+   * @param {object} options 
+   */
+  async deleteOne(collectionName: string, filter, options = {}): Promise<DeleteWriteOpResultObject> {
+    const collection = await this.getCollenction(collectionName);
+    return await collection.deleteOne(filter, options);
+  }
+
+  /**
+   * Delete multiple documents on MongoDB
+   * @param {string} collectionName 
+   * @param {object} filter 
+   * @param {object} options 
+   */
+  async deleteMany(collectionName: string, filter, options = {}): Promise<DeleteWriteOpResultObject> {
+    const collection = await this.getCollenction(collectionName);
+    return await collection.deleteMany(filter, options);
+  }
+
+  /**
+   * Count number of matching documents in the db to a query.
+   * @param {string}collectionName 
+   * @param {object} query 
+   * @param {object} options 
+   */
+  async count(collectionName: string, query, options = {}): Promise<number> {
+    const collection = await this.getCollenction(collectionName);
+    return await collection.count(query, options);
   }
 
 }

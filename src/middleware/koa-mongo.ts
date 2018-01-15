@@ -11,7 +11,7 @@ export function koaMongo () {
       if(!global[symbol]) {
         global[symbol] = await getMongo();
       }
-      ctx.mongo = global[symbol];
+      ctx.mongo= global[symbol];
       await next();
     }
 }
