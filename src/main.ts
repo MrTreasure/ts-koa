@@ -29,7 +29,7 @@ app.use(bodyParser());
 //   ctx.mongo = mongo;
 //   await next();
 // });
-app.use(koaMongo)
+app.use(koaMongo())
 app.use(koaStatic(path.join(__dirname, 'public')));
 app.use(router.routes())
 const server = app.listen(serverConfig.port, () => {
