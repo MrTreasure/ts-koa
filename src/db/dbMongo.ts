@@ -14,10 +14,10 @@ const _defaultConfig: Object = {
 
 /**
  * @interface IMongoResult
- * @param {ok} 错误码
- * @param {es} 错误原因
- * @param {obj} 单条结果
- * @param {list} 多条结果集
+ * @param {number} ok 错误码
+ * @param {string} es 错误原因
+ * @param {any} obj 单条结果
+ * @param {any[]} list 多条结果集
  */
 interface IMongoResult {
   ok: number;
@@ -28,9 +28,9 @@ interface IMongoResult {
 
 /**
  * @interface Options
- * @param {tbName} 操作的表名
- * @param {terms} 查询的条件
- * @param {data} 插入的数据
+ * @param {string} tbName 操作的表名
+ * @param {Object} terms 查询的条件
+ * @param {any} data 插入的数据
  */
 interface IOptions {
   tbName: string;
@@ -180,4 +180,4 @@ export function getMongo(options = mongoConfig): Promise<Mongo> {
       })
     }
   })
-} 
+}
