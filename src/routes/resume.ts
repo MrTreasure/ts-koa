@@ -6,5 +6,6 @@ const router = new Router({
 });
 
 router.get('/info', ResumeCon.getInfo);
+router.get('/mysql', ResumeCon.getMySql);
 
 export default router;

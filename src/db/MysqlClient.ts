@@ -1,5 +1,7 @@
 import { Connection, Pool, ConnectionConfig, PoolConnection } from 'mysql'
 import { read } from 'fs';
+
+const INTRANSATION = 'inTransation';
 export class MysqlClient {
   pool: Pool;
 
@@ -29,7 +31,7 @@ export class MysqlClient {
    */
   private releaseConnection(conn: PoolConnection, closeTran = false): void {
     if(closeTran) {
-      conn['inTransation'] = false;
+      conn[INTRANSATION] = false;
     }
     conn.release();
   }
@@ -44,7 +46,7 @@ export class MysqlClient {
           if(err) {
             return reject(err);
           }
-          conn['inTransaction'] = true;
+          conn[INTRANSATION] = true;
           resolve(conn);
         })
       })
@@ -64,14 +66,50 @@ export class MysqlClient {
     })
   }
 
-  private execute(sqlString, values, conn: PoolConnection) {
-
+  /**
+   * Execute sql, return resuluts;
+   * @param {string} sqlString 
+   * @param {Array<any> | object} values 
+   * @param {PoolConnection} conn 
+   */
+  private execute(sqlString, values, conn: PoolConnection): Promise<any> {
+    let { sql, params } = this.processSqlAndParameter(sqlString, values);
+    let p = conn ? Promise.resolve(conn) : this.getConnection();
+    return p.then(conn => {
+      return new Promise((resolve, reject) => {
+        conn.query(sql, params, (err, results, fieds) => {
+          if(!conn[INTRANSATION]) {
+            this.releaseConnection(conn);
+          }
+          if(err) {
+            return reject(err);
+          }
+          resolve(results);
+        })
+      })
+    })
   }
 
-  execteQuery(sqlString: string, values, conn: PoolConnection = null) {
-
+  execteQuery(sqlString: string, values, conn: PoolConnection = null): Promise<Array<any>> {
+    return this.execute(sqlString, values, conn);
   }
 
+  executeScalar(sqlString, values, conn: PoolConnection = null): Promise<object> {
+    return this.execute(sqlString, values, conn).then(results => {
+      if(results.length == 0) {
+        return null;
+      }
+      return results[0]
+    })
+  }
+
+  excuteNonQuery(sqlString, values, conn: PoolConnection = null): Promise<any> {
+    return this.execute(sqlString, values, conn).then(results => results.affectedRows);
+  }
+
+  excuteInsert(sqlString: string, values, conn: PoolConnection = null): Promise<string> {
+    return this.execute(sqlString, values, conn).then(results => results.insertId);
+  }
   /**
    * Format params
    * @param {string} sqlString 
