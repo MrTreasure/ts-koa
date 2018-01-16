@@ -1,9 +1,8 @@
 import { Connection, Pool, ConnectionConfig, PoolConnection } from 'mysql'
-import { read } from 'fs';
 
 const INTRANSATION = 'inTransation';
 export class MysqlClient {
-  pool: Pool;
+  private pool: Pool;
 
   constructor(pool: Pool) {
    this.pool = pool;
@@ -52,7 +51,10 @@ export class MysqlClient {
       })
     })
   }
-
+  /**
+   * Commit transaction
+   * @param {any} conn
+   */
   commitTransaction(conn: PoolConnection): Promise<void> {
     return new Promise((resolve, reject) => {
       conn.commit(err => {
