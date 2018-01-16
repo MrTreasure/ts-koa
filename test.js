@@ -1,8 +1,7 @@
-function selectName(list, select) {
-  let temp = Object.create(null);
+let datalist = [], idList = [];
 
-  temp = list.find(item => item.foods.find(n => n.name == select));
-
-  return temp;
+let selectArr = [];
+for(let id of idList) {
+  let temp = datalist.find(item => item.id = id);
+  selectArr.push(temp);
 }
-
