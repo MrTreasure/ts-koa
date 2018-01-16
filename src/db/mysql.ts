@@ -1,5 +1,5 @@
 import { createPool } from 'mysql2';
-import { Pool } from '../../node_modules/_@types_mysql@2.15.2@@types/mysql';
+import { Pool } from 'mysql';
 import config from '../config';
 import { MysqlClient } from './MysqlClient';
 

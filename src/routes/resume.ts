@@ -7,5 +7,6 @@ const router = new Router({
 
 router.get('/info', ResumeCon.getInfo);
 router.get('/mysql', ResumeCon.getMySql);
+router.post('/add', ResumeCon.addScore);
 
 export default router;

@@ -1,5 +1,5 @@
 import { Collection, MongoClient as Mongo, Db, Cursor, MongoError, FindAndModifyWriteOpResultObject, UpdateWriteOpResult, DeleteWriteOpResultObject } from 'mongodb';
-import { ObjectID } from '../../node_modules/_@types_bson@1.0.6@@types/bson';
+import { ObjectID } from 'bson';
 /**
  * 
  * 
