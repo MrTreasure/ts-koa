@@ -26,15 +26,18 @@ const addScore = async (ctx: Koa.Context) => {
   } else {
     ctx.status = 400;
     ctx.body = 'no data';
-  }
-  
+  }  
+}
 
+const addUser = async(ctx: Koa.Context) => {
+  ctx.body = 'success';
 }
 
 const ResumeCon = {
   getInfo,
   getMySql,
-  addScore
+  addScore,
+  addUser
 }
 
 export default ResumeCon;

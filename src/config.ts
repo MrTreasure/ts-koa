@@ -13,5 +13,8 @@ export default {
   },
   serverConfig: {
     port: 2001
+  },
+  joiOptions: {
+    allowUnknown: true
   }
 }

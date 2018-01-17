@@ -1,5 +1,7 @@
 import * as Router from 'koa-router';
 import ResumeCon from '../controller/resumeCon';
+import { validator } from '../middleware/validator';
+import { USER } from '../schema/schema';
 
 const router = new Router({
   prefix: '/resume'
@@ -8,6 +10,7 @@ const router = new Router({
 router.get('/info',  ResumeCon.getInfo);
 router.get('/mysql', ResumeCon.getMySql);
 router.post('/add', ResumeCon.addScore);
+router.post('/user', validator(USER),ResumeCon.addUser);
 
 
 export default router;

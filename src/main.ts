@@ -7,10 +7,6 @@ import * as helmet from 'koa-helmet';
 import * as koaStatic from 'koa-static';
 import * as logger from 'koa-logger';
 
-
-import { koaMongo } from './middleware/koa-mongo';
-import { getMongo } from './db/dbMongo';
-
 import config from './config';
 import router from './routes/resume';
 
@@ -25,11 +21,6 @@ if(process.env.NODE_ENV == 'development') {
 app.use(responseTime());
 app.use(helmet());
 app.use(bodyParser());
-// app.use(async (ctx, next) => {
-//   ctx.mongo = mongo;
-//   await next();
-// });
-app.use(koaMongo())
 app.use(koaStatic(path.join(__dirname, 'public')));
 app.use(router.routes())
 const server = app.listen(serverConfig.port, () => {
