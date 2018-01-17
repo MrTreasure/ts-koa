@@ -12,6 +12,6 @@ export default {
     debug: process.env.NODE_ENV == 'development' ? true : false
   },
   serverConfig: {
-    port: 1002
+    port: 2001
   }
 }
