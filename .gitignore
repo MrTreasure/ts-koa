@@ -3,3 +3,4 @@ build/
 typings/
 dist/
 .vscode/
+logs/

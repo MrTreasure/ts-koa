@@ -20,7 +20,7 @@ export class MongoClient {
       const client = await this.clientPromise;
       return client.db(this.dbName);
     } catch (e) {
-      console.error(e);
+      console.error('mongo error',e);
       if(count < 10) {
         this.getDatabase();
         count++;

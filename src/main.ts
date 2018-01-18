@@ -7,6 +7,8 @@ import * as helmet from 'koa-helmet';
 import * as koaStatic from 'koa-static';
 import * as logger from 'koa-logger';
 
+import myLogger from './middleware/logger';
+
 import config from './config';
 import router from './routes/resume';
 
@@ -18,6 +20,7 @@ if(process.env.NODE_ENV == 'development') {
   app.use(logger());
   console.log(process.env.NODE_ENV);
 }
+app.use(myLogger());
 app.use(responseTime());
 app.use(helmet());
 app.use(bodyParser());

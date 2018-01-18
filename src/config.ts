@@ -34,14 +34,14 @@ export default {
           daysToKeep: 7,
           keepFileExt: true
         },
-        request: {
-          type: 'dateFile',
-          filename: path.resolve(__dirname, '../logs/HTTP/request'),
-          pattern: '-yyyy-MM-dd.log',
-          alwaysIncludePattern: true,
-          daysToKeep: 7,
-          keepFileExt: true
-        },
+        // request: {
+        //   type: 'dateFile',
+        //   filename: path.resolve(__dirname, '../logs/HTTP/request'),
+        //   pattern: '-yyyy-MM-dd.log',
+        //   alwaysIncludePattern: true,
+        //   daysToKeep: 7,
+        //   keepFileExt: true
+        // },
         response: {
           type: 'dateFile',
           filename: path.resolve(__dirname, '../logs/HTTP/response'),
@@ -54,7 +54,6 @@ export default {
       categories: {
         default: { appenders: ['common'], level: 'info'},
         error: { appenders: ['error'], level: 'error'},
-        request: { appenders: ['request'], level: 'info'},
         response: { appenders: ['response'], level: 'info'}
       }
     }

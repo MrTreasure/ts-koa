@@ -3,7 +3,18 @@ import * as Koa from 'koa';
 import config from '../config';
 const { logConfig }  = config;
 
-class logUtil {
+log4js.configure(logConfig.options);
+
+let reqLogger = log4js.getLogger('request');
+reqLogger.level = logConfig.level;
+
+let resLogger = log4js.getLogger('response');
+resLogger.level = logConfig.level;
+
+let errLogger = log4js.getLogger('error');
+errLogger.level = logConfig.level;
+
+class LogUtil {
   reqLogger: log4js.Logger;
   resLogger: log4js.Logger;
   errLogger: log4js.Logger;
@@ -23,8 +34,7 @@ class logUtil {
   formatErr (ctx: Koa.Context, err: Error, timeDiff: number): string {
     let logText = `
       \n*************** error log start ***************"\n
-      // todo
-      
+      err request: \n${this.formatReq(ctx)}\n
       err name: ${err.name} \n
       err message: ${err.message} \n
       err stack: ${err.stack} \n
@@ -33,21 +43,56 @@ class logUtil {
     return logText;
   }
 
-  formatReq (ctx: Koa.Context, err: Error, timeDiff: number): string {
-    let bodyInfo = '';
-    if(ctx.request.method === 'GET') {
-      bodyInfo = ctx.request.querystring;
-    } else if(ctx.request.headers['Content-type'].indexOf('json') > 0) {
-      bodyInfo = JSON.stringify(ctx.request['body']);
-    } else {
-      bodyInfo = '';
-    }
+  /**
+   * 
+   * @param {Koa.Context} ctx 
+   */
+  formatReq (ctx: Koa.Context): string {
+    let date = new Date();
+    let flag =ctx.request.headers['Content-type'] &&　ctx.request.headers['Content-type'].indexOf('json') > 0;
     let logText = `
     request method: ${ctx.request.method} \n
     request originaUrl: ${ctx.request.originalUrl} \n
     request client ip: ${ctx.request.ip} \n
-    req
+    request query: ${ctx.querystring} \n
+    requset body: ${flag ? ctx.request['body'] : null} \n
+    requset time: ${date.toUTCString()} \n
     `;
     return logText;
   }
+
+  /**
+   * 
+   * @param {Koa.Context} ctx 
+   * @param {number} timeDiff 
+   */
+  formatRes (ctx: Koa.Context, timeDiff:number): string {
+    let logText = `
+    \n*************** response start ***************\n
+    ${this.formatReq(ctx)}
+    response status: ${ctx.status}\n
+    response body: ${ctx.body ? JSON.stringify(ctx.body) : null}\n
+    response time: ${timeDiff}\n
+    *************** response end ***************\n
+    `;
+    return logText;
+  }
+
+  /**
+   * 
+   * @param {string} log 
+   */
+  logError(log: string): void {
+    this.errLogger.error(log);
+  }
+
+  /**
+   * 
+   * @param {string} log 
+   */
+  logRes(log: string): void {
+    this.resLogger.info(log);
+  }
 }
+
+export default new LogUtil(reqLogger, resLogger, errLogger);
