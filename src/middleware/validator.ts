@@ -3,7 +3,12 @@ import * as Koa from 'koa';
 import config from '../config';
 
 
-
+/**
+ * 
+ * @param {joi.Schema} schema 
+ * @param {joi.ValidationOptions} opt
+ * @returns {async function} 
+ */
 export const validator = (schema: joi.SchemaLike, opt: joi.ValidationOptions = {}) => {
   return async (ctx: Koa.Context, next) => {
     try {
