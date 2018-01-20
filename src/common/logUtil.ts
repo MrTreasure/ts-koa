@@ -43,6 +43,17 @@ class LogUtil {
     return logText;
   }
 
+  formatSystemErr (err: Error): string {
+    let logText = `
+      \n*************** SystemError log start ***************"\n
+      err name: ${err.name} \n
+      err message: ${err.message} \n
+      err stack: ${err.stack} \n
+      *************** SystemError log end ***************\n
+    `;
+    return logText;
+  }
+
   /**
    * 
    * @param {Koa.Context} ctx 

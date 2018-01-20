@@ -8,6 +8,7 @@ import * as koaStatic from 'koa-static';
 import * as logger from 'koa-logger';
 
 import myLogger from './middleware/logger';
+import logUtil from './common/logUtil';
 
 import config from './config';
 import router from './routes/resume';
@@ -15,6 +16,10 @@ import router from './routes/resume';
 const { serverConfig } = config;
 
 const app = new Koa();
+
+app.on('error', err => {
+  logUtil.logError(logUtil.formatSystemErr(err));
+})
 
 if(process.env.NODE_ENV == 'development') {
   app.use(logger());
