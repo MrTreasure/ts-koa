@@ -33,11 +33,10 @@ class LogUtil {
    */
   formatErr (ctx: Koa.Context, err: Error, timeDiff: number): string {
     let logText = `
-      \n*************** error log start ***************"\n
-      err request: \n${this.formatReq(ctx)}\n
-      err name: ${err.name} \n
-      err message: ${err.message} \n
-      err stack: ${err.stack} \n
+      err request: \n${this.formatReq(ctx)}
+      err name: ${err.name}
+      err message: ${err.message}
+      err stack: ${err.stack}
       *************** error log end ***************\n
     `;
     return logText;
@@ -62,12 +61,12 @@ class LogUtil {
     let date = new Date();
     let flag =ctx.request.headers['Content-type'] &&　ctx.request.headers['Content-type'].indexOf('json') > 0;
     let logText = `
-    request method: ${ctx.request.method} \n
-    request originaUrl: ${ctx.request.originalUrl} \n
-    request client ip: ${ctx.request.ip} \n
-    request query: ${ctx.querystring} \n
-    requset body: ${flag ? ctx.request['body'] : null} \n
-    requset time: ${date.toUTCString()} \n
+    request method: ${ctx.request.method}
+    request originaUrl: ${ctx.request.originalUrl}
+    request client ip: ${ctx.request.ip}
+    request query: ${ctx.querystring}
+    requset body: ${flag ? ctx.request['body'] : null}
+    requset time: ${date.toUTCString()}
     `;
     return logText;
   }
@@ -79,12 +78,10 @@ class LogUtil {
    */
   formatRes (ctx: Koa.Context, timeDiff:number): string {
     let logText = `
-    \n*************** response start ***************\n
     ${this.formatReq(ctx)}
-    response status: ${ctx.status}\n
-    response body: ${ctx.body ? JSON.stringify(ctx.body) : null}\n
-    response time: ${timeDiff}\n
-    *************** response end ***************\n
+    response status: ${ctx.status}
+    response body: ${ctx.body ? JSON.stringify(ctx.body) : null}
+    response time: ${timeDiff}ms
     `;
     return logText;
   }
