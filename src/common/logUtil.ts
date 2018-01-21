@@ -14,15 +14,20 @@ resLogger.level = logConfig.level;
 let errLogger = log4js.getLogger('error');
 errLogger.level = logConfig.level;
 
-class LogUtil {
-  reqLogger: log4js.Logger;
-  resLogger: log4js.Logger;
-  errLogger: log4js.Logger;
+let infoLogger = log4js.getLogger('info');
+infoLogger.level = logConfig.level;
 
-  constructor(req, res, err) {
+class LogUtil {
+  private reqLogger: log4js.Logger;
+  private resLogger: log4js.Logger;
+  private errLogger: log4js.Logger;
+  private infoLogger: log4js.Logger;
+
+  constructor(req, res, err, info) {
     this.reqLogger = req;
     this.resLogger = res;
     this.errLogger = err;
+    this.infoLogger = info;
   }
 
   /**
@@ -101,6 +106,10 @@ class LogUtil {
   logRes(log: string): void {
     this.resLogger.info(log);
   }
+
+  logInfo(log: string): void {
+    this.infoLogger.info(log);
+  }
 }
 
-export default new LogUtil(reqLogger, resLogger, errLogger);
+export default new LogUtil(reqLogger, resLogger, errLogger, infoLogger);

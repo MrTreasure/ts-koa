@@ -2,6 +2,8 @@ import * as Koa from 'koa';
 import mongoDb from '../db/mongoDb';
 import mysql from '../db/mysql';
 
+import logUtil from '../common/logUtil';
+
 const getInfo = async (ctx: Koa.Context) => {
   let user = await mongoDb.findOne('user', { name: 'Treasure' });
   ctx.body = user;
@@ -33,11 +35,22 @@ const addUser = async(ctx: Koa.Context) => {
   ctx.body = 'success';
 }
 
+const saveFile = async(ctx: Koa.Context) => {
+  try {
+    logUtil.logInfo(JSON.stringify(ctx.res))
+  } catch (error) {
+    ctx.status = 500;
+    ctx.body = error;
+    console.log(error);
+  }
+}
+
 const ResumeCon = {
   getInfo,
   getMySql,
   addScore,
-  addUser
+  addUser,
+  saveFile
 }
 
 export default ResumeCon;

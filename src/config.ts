@@ -49,6 +49,14 @@ export default {
           alwaysIncludePattern: true,
           daysToKeep: 7,
           keepFileExt: true
+        },
+        info: {
+          type: 'dateFile',
+          filename: path.resolve(__dirname, '../logs/info/info'),
+          pattern: '-yyyy-MM-dd.log',
+          alwaysIncludePattern: true,
+          daysToKeep: 7,
+          keepFileExt: true
         }
       },
       categories: {

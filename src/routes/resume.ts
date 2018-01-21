@@ -11,6 +11,7 @@ router.get('/info',  ResumeCon.getInfo);
 router.get('/mysql', ResumeCon.getMySql);
 router.post('/add', ResumeCon.addScore);
 router.post('/user', validator(USER),ResumeCon.addUser);
+router.post('/saveFile', ResumeCon.saveFile);
 
 
 export default router;
