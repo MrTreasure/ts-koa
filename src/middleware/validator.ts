@@ -12,7 +12,6 @@ import config from '../config';
 export const validator = (schema: joi.SchemaLike, opt: joi.ValidationOptions = {}) => {
   return async (ctx: Koa.Context, next) => {
     try {
-      console.log('here', ctx.request['body']);
       let options = Object.assign({}, config.joiOptions, opt)
       await joi.validate(ctx.request['body'], schema, options);
       await next();

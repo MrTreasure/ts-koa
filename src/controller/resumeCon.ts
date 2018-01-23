@@ -1,6 +1,7 @@
 import * as Koa from 'koa';
 import mongoDb from '../db/mongoDb';
 import mysql from '../db/mysql';
+import redis from '../db/RedisClient';
 
 import logUtil from '../common/logUtil';
 
@@ -45,12 +46,19 @@ const saveFile = async(ctx: Koa.Context) => {
   }
 }
 
+const setRedis = async(ctx: Koa.Context) => {
+  redis.set(ctx.request['body'].key, ctx.request['body'].value);
+  let result = await redis.get(ctx.request['body'].key);
+  ctx.body = result;
+}
+
 const ResumeCon = {
   getInfo,
   getMySql,
   addScore,
   addUser,
-  saveFile
+  saveFile,
+  setRedis
 }
 
 export default ResumeCon;

@@ -13,6 +13,12 @@ export default {
     connectionLimit : 10,
     debug: process.env.NODE_ENV == 'development' ? true : false
   },
+  redisConfig: {
+    port: 6379,
+    host: 'localhost',
+    password: null,
+    db: 0
+  },
   serverConfig: {
     port: 2001
   },
