@@ -12,6 +12,7 @@ const logger = () => {
     } catch (error) {
       let diff = Date.now() - start;
       logUtil.logError(logUtil.formatErr(ctx, error, diff));
+      ctx.body = error;
     }
   }
 }

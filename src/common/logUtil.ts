@@ -104,6 +104,7 @@ class LogUtil {
    * @param {string} log 
    */
   logRes(log: string): void {
+    console.log('log response');
     this.resLogger.info(log);
   }
 
