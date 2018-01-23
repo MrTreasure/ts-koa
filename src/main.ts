@@ -11,7 +11,8 @@ import myLogger from './middleware/logger';
 import logUtil from './common/logUtil';
 
 import config from './config';
-import router from './routes/resume';
+import ResumeRouter from './routes/resume';
+import UserRouter from './routes/users';
 
 const { serverConfig } = config;
 
@@ -30,7 +31,10 @@ app.use(responseTime());
 app.use(helmet());
 app.use(bodyParser());
 app.use(koaStatic(path.join(__dirname, 'public')));
-app.use(router.routes())
+
+// app.use(ResumeRouter.routes());
+app.use(UserRouter.routes());
+
 const server = app.listen(serverConfig.port, () => {
   let addr = server.address();
   console.log(`service running at ${addr.address}:${addr.port}`);

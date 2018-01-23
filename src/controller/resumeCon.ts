@@ -47,7 +47,7 @@ const saveFile = async(ctx: Koa.Context) => {
 }
 
 const setRedis = async(ctx: Koa.Context) => {
-  redis.set(ctx.request['body'].key, ctx.request['body'].value);
+  redis.setex(ctx.request['body'].key, 600, ctx.request['body'].value);
   let result = await redis.get(ctx.request['body'].key);
   ctx.body = result;
 }
