@@ -4,7 +4,7 @@ import { USER } from '../schema/schema';
 import userCon from '../controller/userCon';
 
 const router = new Router({
-  prefix: 'user'
+  prefix: '/user'
 });
 
 router.post('/login', userCon.login);

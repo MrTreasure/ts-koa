@@ -32,7 +32,7 @@ app.use(helmet());
 app.use(bodyParser());
 app.use(koaStatic(path.join(__dirname, 'public')));
 
-// app.use(ResumeRouter.routes());
+app.use(ResumeRouter.routes());
 app.use(UserRouter.routes());
 
 const server = app.listen(serverConfig.port, () => {

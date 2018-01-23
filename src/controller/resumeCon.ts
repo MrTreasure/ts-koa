@@ -6,7 +6,7 @@ import redis from '../db/RedisClient';
 import logUtil from '../common/logUtil';
 
 const getInfo = async (ctx: Koa.Context) => {
-  let user = await mongoDb.findOne('user', { name: 'Treasure' });
+  let user = await mongoDb.findOne('user', { username: 'Treasure' });
   ctx.body = user;
 }
 

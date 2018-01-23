@@ -2,7 +2,7 @@ import * as Koa from 'koa';
 import mongoDb from '../db/mongoDb';
 import redis from '../db/RedisClient';
 
-const EXPIRE_TIME = 60 * 1000;
+const EXPIRE_TIME = 120; // 秒
 
 const addUser = async (ctx: Koa.Context) => {
   console.log('go here');
@@ -23,7 +23,7 @@ const login = async (ctx: Koa.Context) => {
       let data = {
         message: 'login success',
         from: 'redis',
-        data: redisRes
+        data: JSON.parse(redisRes)
       }
       ctx.body = data; 
     } else if(await mongoDb.findOne('user',{username: user.username})){
@@ -34,6 +34,7 @@ const login = async (ctx: Koa.Context) => {
           from: 'mongodb',
           data: mongoRes.result
         }
+        redis.setex(user.username, EXPIRE_TIME, JSON.stringify(user));
         ctx.body = data; 
       }
     } else {

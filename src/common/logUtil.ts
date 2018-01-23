@@ -5,9 +5,6 @@ const { logConfig }  = config;
 
 log4js.configure(logConfig.options);
 
-let reqLogger = log4js.getLogger('request');
-reqLogger.level = logConfig.level;
-
 let resLogger = log4js.getLogger('response');
 resLogger.level = logConfig.level;
 
@@ -18,13 +15,11 @@ let infoLogger = log4js.getLogger('info');
 infoLogger.level = logConfig.level;
 
 class LogUtil {
-  private reqLogger: log4js.Logger;
   private resLogger: log4js.Logger;
   private errLogger: log4js.Logger;
   private infoLogger: log4js.Logger;
 
-  constructor(req, res, err, info) {
-    this.reqLogger = req;
+  constructor(res, err, info) {
     this.resLogger = res;
     this.errLogger = err;
     this.infoLogger = info;
@@ -104,7 +99,7 @@ class LogUtil {
    * @param {string} log 
    */
   logRes(log: string): void {
-    console.log('log response');
+    console.log('log response', this.resLogger);
     this.resLogger.info(log);
   }
 
@@ -113,4 +108,4 @@ class LogUtil {
   }
 }
 
-export default new LogUtil(reqLogger, resLogger, errLogger, infoLogger);
+export default new LogUtil(resLogger, errLogger, infoLogger);
