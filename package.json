@@ -47,6 +47,7 @@
     "koa-static": "^4.0.2",
     "mongodb": "^3.0.1",
     "mongodb-core": "^3.0.1",
-    "mysql2": "^1.5.1"
+    "mysql2": "^1.5.1",
+    "nunjucks": "^3.0.1"
   }
 }

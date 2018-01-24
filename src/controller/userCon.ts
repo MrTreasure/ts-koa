@@ -25,24 +25,21 @@ const login = async (ctx: Koa.Context) => {
         from: 'redis',
         data: JSON.parse(redisRes)
       }
-      ctx.body = data; 
-    } else if(await mongoDb.findOne('user',{username: user.username})){
-      let mongoRes = await mongoDb.findOne('user',{username: user.username});
-      if(mongoRes) {
-        let data = {
-          message: 'login success',
-          from: 'mongodb',
-          data: mongoRes.result
-        }
-        redis.setex(user.username, EXPIRE_TIME, JSON.stringify(user));
-        ctx.body = data; 
-      }
-    } else {
-      let data = {
-        message: 'login faild'
-      };
       ctx.body = data;
+      return; 
     }
+    let mongoRes = await mongoDb.findOne('user',{username: user.username});
+    if(mongoRes) {
+      let data = {
+        message: 'login success',
+        from: 'mongodb',
+        data: mongoRes.result
+      }
+      redis.setex(user.username, EXPIRE_TIME, JSON.stringify(user));
+      ctx.body = data;
+      return; 
+    }
+    ctx.body = { message: 'login faild' };
   } catch (error) {
     ctx.status = 500;
     ctx.body = error;
