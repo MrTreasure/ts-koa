@@ -25,14 +25,9 @@ const login = async (ctx: Koa.Context) => {
         from: 'redis',
         data: JSON.parse(redisRes)
       }
-<<<<<<< HEAD
-      return ctx.body = data; 
-    } 
-=======
       ctx.body = data;
       return; 
     }
->>>>>>> ff94b1c6ec96f4e8480cb8f6c0e9b5c0e34bc4ad
     let mongoRes = await mongoDb.findOne('user',{username: user.username});
     if(mongoRes) {
       let data = {
@@ -41,20 +36,10 @@ const login = async (ctx: Koa.Context) => {
         data: mongoRes.result
       }
       redis.setex(user.username, EXPIRE_TIME, JSON.stringify(user));
-<<<<<<< HEAD
-      return ctx.body = data; 
-    }
-    let data = {
-      message: 'login faild'
-    };
-    ctx.body = data;
-
-=======
       ctx.body = data;
       return; 
     }
     ctx.body = { message: 'login faild' };
->>>>>>> ff94b1c6ec96f4e8480cb8f6c0e9b5c0e34bc4ad
   } catch (error) {
     ctx.status = 500;
     ctx.body = error;
