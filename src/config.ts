@@ -1,6 +1,8 @@
 import * as path from 'path';
 
 export default {
+  keyword: 'Sunshine',
+  host: 'http://mrtreasure.cn',
   mongoConfig: {
     address: 'mongodb://localhost:27017/',
     dbName: 'treasure'

@@ -48,6 +48,7 @@
     "mongodb": "^3.0.1",
     "mongodb-core": "^3.0.1",
     "mysql2": "^1.5.1",
-    "nunjucks": "^3.0.1"
+    "nunjucks": "^3.0.1",
+    "uuid": "^3.2.1"
   }
 }
