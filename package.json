@@ -34,6 +34,7 @@
     "typescript": "^2.6.2"
   },
   "dependencies": {
+    "@types/uuid": "^3.4.3",
     "fs-extra": "^5.0.0",
     "ioredis": "^3.2.2",
     "joi": "^13.1.0",

@@ -1,6 +1,6 @@
 import * as crypto from "crypto";
 import config from '../config';
-import { uuidV4 } from 'uuid';
+import { v4 } from 'uuid';
 
 /**
  * sha1加密
@@ -28,7 +28,7 @@ function md5(str: string, key?:string): string {
  * 返回UUID用于生成Token
  */
 function uuid(): string {
-  return uuidV4();
+  return v4();
 }
 
 export default {
