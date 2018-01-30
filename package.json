@@ -7,7 +7,7 @@
     "dev": "tsc && cross-env NODE_ENV=development node ./dist/main",
     "start": "tsc && cross-env NODE_ENV=production node ./dist/main",
     "build": "tsc",
-    "test": "jest"
+    "test": "jest --no-cache --config jest.config.json"
   },
   "repository": {
     "type": "git",
