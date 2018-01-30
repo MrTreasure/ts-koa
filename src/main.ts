@@ -35,9 +35,8 @@ app.use(koaStatic(path.join(__dirname, 'public')));
 app.use(ResumeRouter.routes());
 app.use(UserRouter.routes());
 
-const server = app.listen(serverConfig.port, () => {
-  let addr = server.address();
-  console.log(`service running at ${addr.address}:${addr.port}`);
+export default app.listen(serverConfig.port, () => {
+  // let addr = server.address();
+  // console.log(`service running at ${addr.address}:${addr.port}`);
 })
 
-export default server;

@@ -4,13 +4,12 @@
       "tsConfigFile": "./tsconfig.json"
     }
   },
-  "collectCoverage": true,
-  "coverageDirectory": "test",
+  "collectCoverage": false,
   "transform": {
     "^.+\\.tsx?$": "ts-jest",
     ".*\\.(ts)$": "./node_modules/ts-jest/preprocessor.js"
   },
-  "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+  "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?|js?)$",
   "moduleFileExtensions": [
     "ts",
     "tsx",
@@ -20,11 +19,9 @@
     "node"
   ],
   "collectCoverageFrom": [
-    "src/*.{ts,tsx}",
     "test/*.{ts,tsx}",
     "!**/node_modules/**",
     "!**/vendor/**"
   ],
-  "coverageDirectory": "test/",
   "rootDir": "./"
 }
