@@ -39,3 +39,5 @@ const server = app.listen(serverConfig.port, () => {
   let addr = server.address();
   console.log(`service running at ${addr.address}:${addr.port}`);
 })
+
+export default server;

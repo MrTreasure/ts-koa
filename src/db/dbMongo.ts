@@ -1,3 +1,4 @@
+// 该类已废弃
 import * as Mongodb from "mongodb";
 import { MongoClient, Db } from "mongodb";
 import config from '../config';
