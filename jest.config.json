@@ -19,6 +19,7 @@
     "node"
   ],
   "collectCoverageFrom": [
+    "src/**.{ts}",
     "test/*.{ts,tsx}",
     "!**/node_modules/**",
     "!**/vendor/**"
