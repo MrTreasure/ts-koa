@@ -3,7 +3,7 @@ afterAll(() => {
   return mongoDb.getCollenction('user').then(collection => collection.drop());
 })
 
-describe.only('Mongodb', () => {
+describe('Mongodb', () => {
   test('find', async () => {
     let res = await mongoDb.findOne('user', { username: 'Treasure' });
     console.log(res);
