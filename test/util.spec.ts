@@ -1,4 +1,4 @@
-import util from '../src/common/util';
+import util from '../src/common/cryptoUtil';
 import * as fs from 'fs-extra';
 import * as path from 'path';
 import * as crypto from "crypto";
