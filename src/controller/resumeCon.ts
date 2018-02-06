@@ -3,7 +3,7 @@ import mongoDb from '../db/mongoDb';
 import mysql from '../db/mysql';
 import redis from '../db/RedisClient';
 
-import logUtil from '../common/logUtil';
+import logUtil from '../util/logUtil';
 
 const getInfo = async (ctx: Koa.Context) => {
   let user = await mongoDb.findOne('user', { username: 'Treasure' });

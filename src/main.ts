@@ -8,7 +8,7 @@ import * as koaStatic from 'koa-static';
 import * as logger from 'koa-logger';
 
 import myLogger from './middleware/logger';
-import logUtil from './common/logUtil';
+import logUtil from './util/logUtil';
 
 import config from './config';
 import ResumeRouter from './routes/resume';

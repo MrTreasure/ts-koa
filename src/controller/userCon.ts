@@ -1,7 +1,7 @@
 import * as Koa from 'koa';
 import mongoDb from '../db/mongoDb';
 import redis from '../db/RedisClient';
-import util from '../common/util';
+import util from '../util/cryptoUtil';
 
 const EXPIRE_TIME = 120; // 秒
 

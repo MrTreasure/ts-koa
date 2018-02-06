@@ -1,4 +1,4 @@
-import logUtil from '../common/logUtil';
+import logUtil from '../util/logUtil';
 import * as Koa from 'koa';
 
 const logger = () => {
