@@ -46,6 +46,7 @@
     "ioredis": "^3.2.2",
     "joi": "^13.1.0",
     "koa": "^2.4.1",
+    "koa-body": "^2.5.0",
     "koa-body-parser": "^1.1.2",
     "koa-helmet": "^3.3.0",
     "koa-logger": "^3.1.0",

@@ -1,7 +1,8 @@
 import * as path from 'path';
 
 import * as Koa from 'koa';
-import * as bodyParser from 'koa-body-parser';
+// import * as bodyParser from 'koa-body-parser';
+import * as bodyParser from 'koa-body';
 import * as responseTime from 'koa-response-time';
 import * as helmet from 'koa-helmet';
 import * as koaStatic from 'koa-static';
@@ -29,14 +30,21 @@ if(process.env.NODE_ENV == 'development') {
 app.use(myLogger());
 app.use(responseTime());
 app.use(helmet());
-app.use(bodyParser());
+app.use(bodyParser({
+  multipart: true,
+  formLimit: '1mb',
+  formidable: {
+    maxFieldsSize: 2 * 1024 * 1024
+  }
+}));
 app.use(koaStatic(path.join(__dirname, 'public')));
 
 app.use(ResumeRouter.routes());
 app.use(UserRouter.routes());
 
-export default app.listen(serverConfig.port, () => {
-  // let addr = server.address();
-  // console.log(`service running at ${addr.address}:${addr.port}`);
+const server = app.listen(serverConfig.port, () => {
+  let addr = server.address();
+  console.log(`service running at ${addr.address}:${addr.port}`);
 })
+export default server;
 

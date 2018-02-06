@@ -9,5 +9,6 @@ const router = new Router({
 
 router.post('/login', userCon.login);
 router.post('/add', validator(USER), userCon.addUser);
+router.post('/upload', userCon.upload);
 
 export default router;

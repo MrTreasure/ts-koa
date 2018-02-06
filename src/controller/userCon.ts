@@ -2,6 +2,8 @@ import * as Koa from 'koa';
 import mongoDb from '../db/mongoDb';
 import redis from '../db/RedisClient';
 import util from '../util/cryptoUtil';
+import * as fs from 'fs-extra';
+import * as path from 'path';
 
 const EXPIRE_TIME = 120; // 秒
 
@@ -47,7 +49,19 @@ const login = async (ctx: Koa.Context) => {
   }
 }
 
+const upload = async (ctx: Koa.Context) => {
+  console.log(ctx.request.body)
+  // let fileList: Promise<any>[] = [];
+  let fileList = ctx.request.body.files
+  for(let key in fileList) {
+    // fs.writeFile(path.resolve(__dirname, `../../upload/${fileList[key].name}`), fileList[key].path);
+    fs.createReadStream(fileList[key].path).pipe(fs.createWriteStream(path.resolve(__dirname, `../../upload/${fileList[key].name}`)))
+  }
+
+}
+
 export default {
   addUser,
-  login
+  login,
+  upload
 }
