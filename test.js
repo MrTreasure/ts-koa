@@ -1,10 +1,3 @@
-const fs = require('fs-extra')
+const path = require('path')
 
-let buf1 = Buffer.from('abc');
-let buf2 = Buffer.from('def');
-
-let buffer = [buf1, buf2];
-buffer = Buffer.concat(buffer);
-// 
-
-console.log(buffer.toString());
+console.log(process.cwd(), __dirname, './view')

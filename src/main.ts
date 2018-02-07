@@ -7,6 +7,7 @@ import * as responseTime from 'koa-response-time';
 import * as helmet from 'koa-helmet';
 import * as koaStatic from 'koa-static';
 import * as logger from 'koa-logger';
+import * as nunjucks from 'koa-nunjucks-2';
 
 import myLogger from './middleware/logger';
 import logUtil from './util/logUtil';
@@ -30,6 +31,13 @@ if(process.env.NODE_ENV == 'development') {
 app.use(myLogger());
 app.use(responseTime());
 app.use(helmet());
+app.use(nunjucks({
+  ext: 'html',
+  path: path.join(__dirname, './views'),
+  nunjucksConfig: {
+    trimBlocks: true
+  }
+}));
 app.use(bodyParser({
   multipart: true,
   formLimit: '1mb',
