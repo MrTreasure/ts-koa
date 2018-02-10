@@ -5,7 +5,7 @@ export default {
   host: 'http://mrtreasure.cn',
   mongoConfig: {
     address: 'mongodb://localhost:27017/',
-    dbName: 'treasure'
+    dbName: 'crypto'
   },
   mysqlConfig: {
     host: 'localhost',

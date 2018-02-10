@@ -5,9 +5,9 @@ import { Buffer } from "buffer";
 /**
  * sha1加密
  * @param {string} str 需要加密的字符串
- * @param {string?} key 加密的key 默认在config
+ * @param {string} key 加密的key
  */
-function sha1(str: string, key?:string): string {
+function sha1(str: string, key:string): string {
   let sha1 = crypto.createHmac('sha1', key);
   sha1.update(str);
   return sha1.digest('hex');
@@ -16,9 +16,9 @@ function sha1(str: string, key?:string): string {
 /**
  * MD5加密
  * @param {string} str 需要加密的字符串
- * @param {string?} key 加密的key 默认在config
+ * @param {string?} key 加密的key
  */
-function md5(str: string, key?:string): string {
+function md5(str: string, key:string): string {
   let sha1 = crypto.createHmac('sha1', key);
   sha1.update(str);
   return sha1.digest('hex');
