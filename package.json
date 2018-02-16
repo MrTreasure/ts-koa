@@ -28,7 +28,7 @@
     "@types/ioredis": "^3.2.5",
     "@types/jest": "^22.1.1",
     "@types/joi": "^13.0.5",
-    "@types/koa": "^2.0.43",
+    "@types/koa": "^2.0.44",
     "@types/koa-router": "^7.0.27",
     "@types/log4js": "^2.3.5",
     "@types/mongodb": "^3.0.1",
