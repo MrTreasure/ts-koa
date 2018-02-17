@@ -3,9 +3,11 @@ import mongo from '../src/db/mongoDb'
 import * as crypto from 'crypto'
 import * as path from 'path'
 import * as fs from 'fs-extra'
+import { Buffer } from 'buffer';
 
-const code = 'Sunshine'
-const plain = '始终相信美好的事情即将发生'
+const secret = 'Sunshine'
+const salt = 'Treasure'
+const plainText = '始终相信美好的事情即将发生'
 const publicKey = `-----BEGIN PUBLIC KEY-----
 MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC7ikxFcifEdVZ7IxSvd65vUQKx
 xvYZRx+qSz0Cl1Xj+PwyT9hnw4M6rglvbjgpQhQnnumY/KkmI7CCglXVNjOI9zRA
@@ -31,32 +33,49 @@ BnaJUPhgGM9r9N52NWb/WuhT1PgLZSlW0OhBX1/xJg==
 describe('密码学术语', () => {
 
   test('对称密码', () => {
-
+    //TODO 没有通过测试，报错 error:06065064:digital envelope routines:EVP_DecryptFinal_ex:bad decrypt 
+    const cipher = crypto.createCipher('aes192', secret)
+    cipher.update(Buffer.from(plainText))
+    const cipherText = cipher.final()
+    const deCipher = crypto.createDecipher('aes192', secret)
+    deCipher.update(cipherText)
+    const temp = deCipher.final()
+    expect(temp).toBe(Buffer.from(plainText))
+    
   })
 
   test('公钥密码', () => {
-
+    const publicText = crypto.publicEncrypt(publicKey, Buffer.from(plainText))
+    const privateText = crypto.privateDecrypt(privateKey, publicText)
+    expect(privateText.toString()).toBe(plainText)
   })
 
-  test.only('单向散列函数', async () => {
+  test('单向散列函数', async () => {
     const hash = crypto.createHash('sha256')
     // 一般对公钥进行散列
     hash.update(publicKey)
     const hex = hash.digest('hex')
-    console.log(hex)
     expect(hex).not.toBeNull()
   })
 
   test('消息认证码', () => {
-
+    const hmac = crypto.createHmac('sha256', salt)
+    hmac.update(plainText)
+    const msg = hmac.digest('hex')
+    expect(msg).not.toBeNull()
   })
 
   test('数字签名', () => {
-
+    const sign = crypto.createSign('RSA-SHA256')
+    const signature = sign.sign(privateKey)
+    const verify = crypto.createVerify('RSA-SHA256')
+    expect(verify.verify(publicKey, signature)).toBeTruthy()
   })
 
   test('伪随机数生成器', () => {
-    
+    const random = crypto.randomBytes(256).toString('hex')
+    console.log(random)
+    expect(random.length).toBe(512)
   })
 })
 
