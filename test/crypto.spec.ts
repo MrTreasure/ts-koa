@@ -34,14 +34,14 @@ describe('密码学术语', () => {
 
   test('对称密码', () => {
     //TODO 没有通过测试，报错 error:06065064:digital envelope routines:EVP_DecryptFinal_ex:bad decrypt 
-    const cipher = crypto.createCipher('aes192', secret)
-    cipher.update(Buffer.from(plainText))
-    const cipherText = cipher.final()
-    const deCipher = crypto.createDecipher('aes192', secret)
-    deCipher.update(cipherText)
-    const temp = deCipher.final()
+    const cipher = crypto.createCipher('aes-256-cbc', Buffer.from(secret))
+    cipher.update(plainText, 'utf8', 'hex')
+    const cipherText = cipher.final('hex')
+    const deCipher = crypto.createDecipher('aes-256-cbc', Buffer.from(secret))
+    deCipher.update(cipherText, 'hex', 'utf8')
+    const temp = deCipher.final('utf8')
+    console.log(temp)
     expect(temp).toBe(Buffer.from(plainText))
-    
   })
 
   test('公钥密码', () => {
@@ -73,9 +73,8 @@ describe('密码学术语', () => {
   })
 
   test('伪随机数生成器', () => {
-    const random = crypto.randomBytes(256).toString('hex')
-    console.log(random)
-    expect(random.length).toBe(512)
+    const random = crypto.randomBytes(256)
+    expect(random.length).toBe(256)
   })
 })
 
