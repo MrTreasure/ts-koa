@@ -5,13 +5,14 @@ import * as path from 'path'
 import * as fs from 'fs-extra'
 
 const code = 'Sunshine'
-const pub = `-----BEGIN PUBLIC KEY-----
+const plain = '始终相信美好的事情即将发生'
+const publicKey = `-----BEGIN PUBLIC KEY-----
 MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC7ikxFcifEdVZ7IxSvd65vUQKx
 xvYZRx+qSz0Cl1Xj+PwyT9hnw4M6rglvbjgpQhQnnumY/KkmI7CCglXVNjOI9zRA
 /IfSv3juPTEFItJUcnfOtgnzDgrzMvu9gP9nH45aD5mnZd+zWaK9BSJSuOk/D6rj
 Lts8Iykv1jpQ/KYFPwIDAQAB
 -----END PUBLIC KEY-----`
-const pri = `-----BEGIN RSA PRIVATE KEY-----
+const privateKey = `-----BEGIN RSA PRIVATE KEY-----
 MIICWwIBAAKBgQC7ikxFcifEdVZ7IxSvd65vUQKxxvYZRx+qSz0Cl1Xj+PwyT9hn
 w4M6rglvbjgpQhQnnumY/KkmI7CCglXVNjOI9zRA/IfSv3juPTEFItJUcnfOtgnz
 DgrzMvu9gP9nH45aD5mnZd+zWaK9BSJSuOk/D6rjLts8Iykv1jpQ/KYFPwIDAQAB
@@ -37,8 +38,13 @@ describe('密码学术语', () => {
 
   })
 
-  test('单向散列函数', () => {
-
+  test.only('单向散列函数', async () => {
+    const hash = crypto.createHash('sha256')
+    // 一般对公钥进行散列
+    hash.update(publicKey)
+    const hex = hash.digest('hex')
+    console.log(hex)
+    expect(hex).not.toBeNull()
   })
 
   test('消息认证码', () => {
